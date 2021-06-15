@@ -12,7 +12,6 @@ router.get('/:date', async (req , res) =>{
         const result = await pool.request()
                 .query(`select count (CreatedDate) as count from bot where convert(date, CreatedDate, 111) = '${date}';`)
             res.json(result.recordset[0].count)
-
     }catch(err) {
         res.status(500)
         res.send(err.message)

@@ -11,7 +11,6 @@ router.get('/', async (req , res) =>{
         var month = date.getMonth()
         const result = await pool.request()
                 .query(`select DAY(CreatedDate) as CreatedDate, DisplayName from bot where MONTH(CreatedDate) = ${month} and YEAR(CreatedDate) = ${year}`)
-                
                 var props = result.recordset
                 var output = [...props.reduce( (mp, o) => {
                     const key = JSON.stringify([o.CreatedDate, o.DisplayName]);

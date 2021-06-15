@@ -7,10 +7,11 @@ router.get('/', async (req, res)=>{
     try{
         const pool  = await poolPromise
         const{month, name, year} = req.query
+      
         const result  = await pool.request()
-            .query(`select DAY(CreatedDate) as CreatedDate, DisplayName from bot where YEAR(CreatedDate) = ${year} and MONTH(CreatedDate) = ${month} and DisplayName = '${name}'`)
+            .query(`select DAY(CreatedDate) as CreatedDate, DisplayName from bot where MONTH(CreatedDate) = ${month} and YEAR(CreatedDate) = ${year}`)
             var props = result.recordset
-          
+           
             var output = [...props.reduce( (mp, o) => {
                 const key = JSON.stringify([o.CreatedDate, o.DisplayName]);
                 if (!mp.has(key)) mp.set(key, { ...o, count: 0 });
